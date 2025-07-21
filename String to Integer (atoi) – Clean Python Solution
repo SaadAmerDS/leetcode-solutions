@@ -1,0 +1,58 @@
+💡Intuition
+We need to convert a string to an integer by parsing valid digits while following specific rules:
+
+Ignore leading whitespaces
+
+Handle optional '+' or '-' sign
+
+Stop at first non-digit character
+
+Clamp result within 32-bit signed integer range
+
+This mimics the behavior of the atoi function in C/C++.
+
+🧠Approach
+-Trim leading whitespaces using lstrip().
+
+-Check the sign (+ or -) and store it.
+
+-Iterate through the string, adding digits to a number variable.
+
+-Multiply the result by the sign.
+
+-Clamp the number within [-2³¹, 2³¹ - 1] to avoid overflow.
+
+🧮Complexity
+Time complexity:
+O(n) – We process each character once.
+
+Space complexity:
+O(1) – No extra space used beyond variables.
+
+Code
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        s = s.lstrip()
+        if not s:
+            return 0
+
+        sign = 1
+        index = 0
+        if s[0] == '-':
+            sign = -1
+            index += 1
+        elif s[0] == '+':
+            index += 1
+
+        num = 0
+        while index < len(s) and s[index].isdigit():
+            num = num * 10 + int(s[index])
+            index += 1
+
+        num *= sign
+
+        INT_MIN = -2**31
+        INT_MAX = 2**31 - 1
+        num = max(min(num, INT_MAX), INT_MIN)
+
+        return num
