@@ -1,0 +1,38 @@
+Title:
+Maximum Score From Removing Substrings
+
+Intuition:
+We want to maximize our score by greedily removing the more valuable substring ("ab" or "ba") first. Since removals can affect the string structure, we process the higher-point one first using a stack.
+
+Approach:
+- Compare `x` and `y` to decide which substring to remove first.
+- Use a stack to scan the string and remove valid pairs.
+- First pass: remove all higher-value substrings and keep the result.
+- Second pass: remove the lower-value substrings from the remaining string.
+
+Complexity:
+- Time complexity: O(n), where n is the length of the string.
+- Space complexity: O(n) for the stack.
+
+Code:
+```python
+def maximumGain(s: str, x: int, y: int) -> int:
+    def remove_pair(s, a, b, points):
+        stack = []
+        score = 0
+        for ch in s:
+            if stack and stack[-1] == a and ch == b:
+                stack.pop()
+                score += points
+            else:
+                stack.append(ch)
+        return "".join(stack), score
+
+    total = 0
+    if x > y:
+        s, gain1 = remove_pair(s, 'a', 'b', x)
+        s, gain2 = remove_pair(s, 'b', 'a', y)
+    else:
+        s, gain1 = remove_pair(s, 'b', 'a', y)
+        s, gain2 = remove_pair(s, 'a', 'b', x)
+    return gain1 + gain2
