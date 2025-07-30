@@ -1,0 +1,67 @@
+SEARCH OR INSERT POSITION IN A SORTED LIST(LINEAR SEARCH APPROACH):
+
+INTUITION:
+The goal of this code is to search for a target value in a list called nums.
+
+If the target is found, the function returns its index.
+
+If the target is not found, it returns the index where the target should be inserted to maintain the sorted order of the list (similar to the bisect module or LeetCode's "Search Insert Position" problem).
+
+APPROACH:
+Initialize counters and flags.
+
+Loop once to check if the target exists in the list:
+
+If found, store the index in y_ans and break.
+
+If not found (l != 1):
+
+Loop again to find the first index where nums[i] > target.
+
+If found, return that index (n_ans).
+
+Otherwise, return len(nums) (insert at the end).
+
+If the target was found in step 2, return its index.
+
+TIME COMPLEXITY:
+Worst-case: O(n)
+
+First loop: up to n iterations (if target not found).
+
+Second loop: up to n iterations (if target is greater than all elements).
+
+Total worst-case: O(n)
+
+SPACE COMPLEXITY:
+O(1) (constant space)
+
+No additional data structures are used; only a few integer variables.
+
+Summary:
+This code performs a linear search to find or insert a target in a sorted list. It could be optimized to O(log n) using binary search if nums is guaranteed to be sorted, but as written, it’s a straightforward and clear approach with linear complexity.
+
+CODE:
+        count = 0
+        y_ans = 0
+        n_ans = 0
+        p = 0
+        l = 0
+        while count < len(nums):
+            if target == nums[count]:
+                y_ans = count
+                l += 1
+                break
+            count += 1
+        if l != 1:
+            for count in range(0,len(nums)):
+                if nums[count] > target:
+                    n_ans = count
+                    p = 1
+                    break
+            if p == 1:
+                return n_ans
+            else:
+                return len(nums)
+        else:
+            return y_ans
