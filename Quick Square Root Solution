@@ -1,0 +1,34 @@
+Quick Square Root Solution – Easy Python Trick:
+
+Intuition:
+The task is to compute the square root of a non-negative integer x and return the integer part only (i.e., floor of the square root).
+This means, for input x = 8, we return 2 since sqrt(8) ≈ 2.828..., and the integer part is 2.
+
+Since Python provides a built-in math.sqrt() function which returns the floating-point square root, we can just take its integer part using int() (which truncates toward zero).
+
+Approach:
+Use math.sqrt(x) to get the square root of x as a float.
+
+Convert the float result to an integer using int(), which truncates the decimal part.
+
+Return the result.
+
+✅ This approach avoids loops or binary search since it relies on Python’s math library for the square root computation.
+
+Complexity:
+Time complexity:
+
+O(1) – Constant time.
+✅ This approach avoids loops or binary search since it relies on Python’s math library for the square root computation.
+Space complexity:
+
+O(1) – Constant space.
+We use a fixed number of variables (ans) and no data structures that grow with input.
+
+Code:
+
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        ans = math.sqrt(x)
+        ans = int(ans)
+        return ans
